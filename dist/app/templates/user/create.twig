@@ -15,5 +15,14 @@
 {% block content %}
     <div>
         <h1>Створення користувача</h1>
+        <form action="{{ path_for('user.create') }}" method="POST">
+            <div class="form-group">
+                <label for="username">Логін  <span class="text-danger">*</span></label>
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+            <p class="text-danger">* Не коротше 5 символів латинських літер або цифр</p>
+            <button class="btn btn-success">Зберігти</button> 
+            {{ form.csrf|raw }}
+        </form>
     </div>
 {% endblock %}

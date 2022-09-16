@@ -9,6 +9,8 @@ $app->group('', function() {
     $this->get('/user/create', 'UserController:create')->setName('user.create');
     $this->post('/user/create', 'UserController:store');
     $this->get('/user/details/{id}', 'UserController:details')->setName('user.details');
+    $this->get('/user/update[/{id}]', 'UserController:edit')->setName('user.update');
+    $this->post('/user/update', 'UserController:update');
     $this->get('/logout', 'UserController:logout')->setName('user.logout');
 })->add(new \App\Middleware\AuthMiddleware($container));
 

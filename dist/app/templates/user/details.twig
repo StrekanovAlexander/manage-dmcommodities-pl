@@ -13,7 +13,27 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h1>Iнформація про користувача</h1>
+    <h1>Iнформація про користувача</h1>
+    <div class="row mt-4">
+        <div class="col">
+            <ul  class="list-group">
+                <li class="list-group-item">
+                    Ім'я: <span class="ml-2">{{ user.user_name }}</span>
+                </li>
+                <li class="list-group-item">
+                    Всі права: <span class="ml-2">{{ user.is_root ? icon.check|raw : icon.times|raw }}</span>
+                </li>
+                <li class="list-group-item">
+                    Aктуальність: <span class="ml-2">{{ user.is_actual ? icon.check|raw : icon.times|raw }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>    
+    <div class="mt-4">
+        {# {% if user.user_name != 'admin' %} #}    
+            <a class="btn btn-success btn-sm" href="{{ path_for('user.update', {'id': user.id}) }}">Редагувати</a>
+        {# {% endif %}
+            <a class="btn btn-primary btn-sm" href="{{ path_for('user.update.pwd', {'id': user.id}) }}">Зміна гасла</a>
+        </div>    #}
     </div>
 {% endblock %}
