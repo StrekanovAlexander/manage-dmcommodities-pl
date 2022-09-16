@@ -1,0 +1,19 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Створення користувача
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('user.index') }}">Користувачи</a></li>
+        <li class="breadcrumb-item active">Створення користувача</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Створення користувача</h1>
+    </div>
+{% endblock %}
