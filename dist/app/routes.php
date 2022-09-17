@@ -13,6 +13,10 @@ $app->group('', function() {
     $this->post('/user/update', 'UserController:update');
     $this->get('/user/update-password[/{id}]', 'UserController:editPassword')->setName('user.update.password');
     $this->post('/user/update-password', 'UserController:updatePassword');
+})->add(new \App\Middleware\AuthMiddleware($container))
+->add(new \App\Middleware\GlobalMiddleware($container));
+
+$app->group('', function() {
     $this->get('/logout', 'UserController:logout')->setName('user.logout');
 })->add(new \App\Middleware\AuthMiddleware($container));
 
