@@ -20,8 +20,8 @@
                 <label for="username">Логін  <span class="text-danger">*</span></label>
                 <input type="text" name="username" id="username" class="form-control">
             </div>
-            <p class="text-danger">* Не коротше 5 символів латинських літер або цифр</p>
-            <button class="btn btn-success">Зберігти</button> 
+            <p class="text-danger">* {{ form.strvalid }}</p>
+            <button class="btn btn-success btn-sm">Зберігти</button> 
             {{ form.csrf|raw }}
         </form>
     </div>

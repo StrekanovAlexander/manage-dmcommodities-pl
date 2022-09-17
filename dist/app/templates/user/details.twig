@@ -29,11 +29,11 @@
             </ul>
         </div>
     </div>    
-    <div class="mt-4">
+    <div class="mt-4 d-flex justify-content-between">
         {# {% if user.user_name != 'admin' %} #}    
             <a class="btn btn-success btn-sm" href="{{ path_for('user.update', {'id': user.id}) }}">Редагувати</a>
-        {# {% endif %}
-            <a class="btn btn-primary btn-sm" href="{{ path_for('user.update.pwd', {'id': user.id}) }}">Зміна гасла</a>
-        </div>    #}
+        {# {% endif %}  #} 
+            <a class="btn btn-secondary btn-sm" href="{{ path_for('user.update.password', {'id': user.id}) }}">Зміна гасла</a>
+        {# </div>    #}
     </div>
 {% endblock %}

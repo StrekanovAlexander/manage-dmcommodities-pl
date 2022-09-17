@@ -10,7 +10,7 @@ class Auth {
         $user = User::where('user_name', $userName)->where('is_actual', true)->first();
         if (!$user) { return false; }
      
-        if ($password == $user->password) {   
+        if (password_verify($password, $user->password)) {
             $_SESSION['user'] = $user->id;
             return true;
         }
