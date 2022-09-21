@@ -49,7 +49,7 @@ class PlaceController extends Controller {
         $place = Place::find($args['id']);
         return $this->view->render($res, 'place/details.twig', [
             'place' => $place,
-            'place_translates' => PlaceTranslate::where('place_id', $place->id)
+            'place_translates' => PlaceTranslate::where('place_id', $place->id)->get()
         ]);
     }
 

@@ -7,7 +7,7 @@
 {% block breadcrumb %}
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
-        <li class="breadcrumb-item"><a href="{{ path_for('place.index') }}">Мови</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('place.index') }}">Міста</a></li>
         <li class="breadcrumb-item active">{{ place.full_name }}</li>
     </ul>
 {% endblock %}
@@ -20,6 +20,28 @@
             <td>{{ place.full_name }}</td>
         </tr>
         <tr>
+            <th>Переклади</th>
+            <td>
+                {% if place_translates|length %}
+                    {% for place_translate in place_translates %}
+                        <div>
+                            {{ place_translate.full_name }}
+                            <a href="{{ path_for('place.translate.update', {
+                                id: place_translate.id, lang: place_translate.language_id
+                            }) }}" class="badge badge-primary">
+                                {{ place_translate.language.short_name }}
+                            </a>
+                        </div>               
+                    {% endfor %}
+                {% else %}
+                    Немає переладів
+                {% endif %}
+                <div>
+                    <a href="{{ path_for('place.translate.create', {id: place.id}) }}">Створити</a>
+                </div>    
+            </td>
+        </tr>
+        <tr>
             <th>Aктуальність</th>
             <td>
                 <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ place.id }}" data-name="{{ place.full_name }}">
@@ -28,20 +50,9 @@
             </td>
         </tr>
     </table>
-    <div class="mt-4 d-flex justify-content-between">
+    <div class="mt-4">
         <a class="btn btn-success btn-sm" href="{{ path_for('place.update', {'id': place.id}) }}">Редагувати</a>
-        <a class="btn btn-primary btn-sm" href="{{ path_for("place.translate.create", {'id': place.id}) }}">Додати переклад</a>
     </div>
-    <h2 class="mt-4 mb-2">Переклади</h2>
-    <table class="table table-sm table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Назва</th>
-            <th class="w-15 text-center">Актуальність</th>
-            <th class="w-10 text-center">Огляд</th>
-        </tr>
-    </table>
-
     <div class="modal fade" id="modal" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ path_for('place.actuality') }}" method="POST">

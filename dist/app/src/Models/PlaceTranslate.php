@@ -9,7 +9,16 @@ class PlaceTranslate extends Model {
     protected $fillable = [
         'place_id',
         'language_id',
+        'full_name',
         'is_actual',
     ];
 
+    public function language() {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
+
+    public function place() {
+        return $this->belongsTo(Place::class, 'place_id');
+    }
+    
 }

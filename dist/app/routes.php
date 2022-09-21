@@ -35,8 +35,10 @@ $app->group('', function() {
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
-    $this->get('/place/translate/create/{id}', 'PlaceTranslateController:create')->setName('place.translate.create');
+    $this->get('/place/translate/create[/{id}]', 'PlaceTranslateController:create')->setName('place.translate.create');
     $this->post('/place/translate/create', 'PlaceTranslateController:store');
+    $this->get('/place/translate/update[/{id}]', 'PlaceTranslateController:edit')->setName('place.translate.update');
+    $this->post('/place/translate/update', 'PlaceTranslateController:update');
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {

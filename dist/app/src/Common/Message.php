@@ -9,6 +9,7 @@ class Message {
         'DATA_EXISTS' => 'Відмова! Запис вже існує: ',
         'DATA_EMPTY' => 'Відмова! Порожній рядок',
         'DATA_INCORRECT' => 'Відмова! Некоректні дані: ',
+        'DATA_REF_EXISTS' => 'Відмова! Некоректні зв`язки',
         'DATA_UPDATED' => 'Запис було відредаговано: ',
         'PWD_CHANGED' => 'Гасло було змінено',
         'PWD_NOT_MATCH' => 'Відмова! Гасла не співпадають',
@@ -29,6 +30,10 @@ class Message {
 
     public static function dataIncorrect($data) {
         return self::MESSAGES['DATA_INCORRECT'] . $data;
+    }
+
+    public static function dataRefExists() {
+        return self::MESSAGES['DATA_REF_EXISTS'];
     }
 
     public static function dataUpdated($data) {
