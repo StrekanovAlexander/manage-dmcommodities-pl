@@ -24,7 +24,7 @@
             <label for="language_id">Мова</label>
             <select class="form-control" name="language_id" id="language_id">
             {% for language in languages %}
-                <option value="{{ place_translate.id }}" {{ language.id == place_translate.language_id ? 'selected' : '' }}>
+                <option value="{{ language.id }}" {{ language.id == place_translate.language_id ? 'selected' }}>
                     {{ language.short_name }}
                 </option>
             {% endfor %}

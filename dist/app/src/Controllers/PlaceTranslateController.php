@@ -64,9 +64,6 @@ class PlaceTranslateController extends Controller {
         $fullName = trim($req->getParam('full_name')); 
         $languageId = $req->getParam('language_id'); 
 
-        var_dump($languageId);
-        die();
-
         if (!$fullName) {
             $this->flash->addMessage('error', Message::dataEmpty());
             return $res->withRedirect($this->router->pathFor('place.translate.update', [
@@ -75,8 +72,8 @@ class PlaceTranslateController extends Controller {
         }
         
         $placeTranslate = PlaceTranslate::find($req->getParam('id'));
-         
-        $isExists = PlaceTranslate::where('language_id', $languageId)->where('id', '<>', $placeTranslate->id)->count();
+        $isExists = PlaceTranslate::where('language_id', $languageId)
+            ->where('id', '<>', $placeTranslate->id)->count();
         
         if ($isExists) {
             $this->flash->addMessage('error', Message::dataRefExists());

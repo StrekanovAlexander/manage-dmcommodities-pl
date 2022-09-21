@@ -25,12 +25,9 @@
                 {% if place_translates|length %}
                     {% for place_translate in place_translates %}
                         <div>
-                            {{ place_translate.full_name }}
-                            <a href="{{ path_for('place.translate.update', {
+                            {{ place_translate.full_name }} <a href="{{ path_for('place.translate.update', {
                                 id: place_translate.id, lang: place_translate.language_id
-                            }) }}" class="badge badge-primary">
-                                {{ place_translate.language.short_name }}
-                            </a>
+                                }) }}" class="badge badge-light">{{ place_translate.language.short_name }}</a>
                         </div>               
                     {% endfor %}
                 {% else %}
