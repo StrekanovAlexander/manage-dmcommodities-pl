@@ -1,37 +1,37 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    Користувачи
+    Мови
 {% endblock %}
 
 {% block breadcrumb %}
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
-        <li class="breadcrumb-item active">Користувачи</li>
+        <li class="breadcrumb-item active">Мови</li>
     </ul>
 {% endblock %}
 
 {% block content %}
     <div>
-        <h1>Користувачи</h1>
+        <h1>Мови</h1>
         <div class="text-right">
-            <a href="{{ path_for("user.create") }}" class="btn btn-success btn-sm mb-2">Створити</a>
+            <a href="{{ path_for("language.create") }}" class="btn btn-success btn-sm mb-2">Створити</a>
         </div>
-        {% if users|length %}
+        {% if languages|length %}
             <table class="table table-sm table-striped">
                 <tr>
                     <th>ID</th>
-                    <th>Логін</th>
+                    <th>Коротка назва</th>
                     <th class="w-15 text-center">Актуальність</th>
                     <th class="w-10 text-center">Огляд</th>
                 </tr>
-            {% for user in users %}
+            {% for language in languages %}
                 <tr>
-                    <td>{{ user.id }}</td>    
-                    <td>{{ user.user_name }}</td>    
-                    <td class="text-center">{{ user.is_actual ? icon.check|raw : icon.times|raw }}</td>
+                    <td>{{ language.id }}</td>    
+                    <td>{{ language.short_name }}</td>    
+                    <td class="text-center">{{ language.is_actual ? icon.check|raw : icon.times|raw }}</td>
                     <td class="text-center">
-                        <a href="{{ path_for('user.details', {'id': user.id}) }}">{{ icon.search|raw }}</a>
+                        <a href="{{ path_for('language.details', {'id': language.id}) }}">{{ icon.search|raw }}</a>
                     </td>
                 </tr>
             {% endfor %}

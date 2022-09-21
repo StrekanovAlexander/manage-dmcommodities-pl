@@ -48,7 +48,23 @@ $container['flash'] = function() {
 
 $container['HomeController'] = function($c) {
     return new App\Controllers\HomeController($c);
+};
+
+$container['CurrencyController'] = function($c) {
+    return new App\Controllers\CurrencyController($c);
 }; 
+
+$container['LanguageController'] = function($c) {
+    return new App\Controllers\LanguageController($c);
+}; 
+
+$container['PlaceController'] = function($c) {
+    return new App\Controllers\PlaceController($c);
+};
+
+$container['PlaceTranslateController'] = function($c) {
+    return new App\Controllers\PlaceTranslateController($c);
+};
 
 $container['UserController'] = function($c) {
     return new App\Controllers\UserController($c);

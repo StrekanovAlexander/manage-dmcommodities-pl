@@ -1,0 +1,36 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Редагування мови: {{ language.short_name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('language.index') }}">Мови</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('language.details', {id: language.id}) }}">{{ language.short_name }}</a></li>
+        <li class="breadcrumb-item active">Редагування</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Редагування мови: {{ language.short_name }}</h1>
+    <form action="{{ path_for('language.update') }}" method="POST">
+        <div class="form-group">
+            <label for="short_name">Коротка назва</label>
+            <input class="form-control" name="short_name" id="short_name" value="{{ language.short_name }}">
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <label for="is_actual" class="form-check-label">
+                    <input type="checkbox" class="form-check-input"{{ language.is_actual ? form.checkbox.checked : ''}} name="is_actual" id="is_actual">Актуальність
+                </label>
+            </div>
+        </div>
+        <button class="btn btn-success btn-sm">
+            Зберігти
+        </button>
+        <input type="hidden" name="id" id="id" value="{{ language.id }}">
+        {{ form.csrf|raw }}
+    </form>
+{% endblock %}

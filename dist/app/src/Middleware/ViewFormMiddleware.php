@@ -9,7 +9,6 @@ class ViewFormMiddleware extends Middleware {
         $this->container->view->getEnvironment()->addGlobal('form', [
             'checkbox' => ['checked' => ' checked="checked"'],
             'radio' => ['checked' => ' checked="checked"'],
-            'strvalid' => 'A-Z a-z 0-9 (>5)',
             'csrf' => '
                 <input type="hidden" name="' . $this->container->csrf->getTokenNameKey() . '" value="' . $this->container->csrf->getTokenName() . '">
                 <input type="hidden" name="' . $this->container->csrf->getTokenValueKey() . '" value="' . $this->container->csrf->getTokenValue() . '">',

@@ -1,37 +1,37 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    Користувачи
+    Міста
 {% endblock %}
 
 {% block breadcrumb %}
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
-        <li class="breadcrumb-item active">Користувачи</li>
+        <li class="breadcrumb-item active">Міста</li>
     </ul>
 {% endblock %}
 
 {% block content %}
     <div>
-        <h1>Користувачи</h1>
+        <h1>Міста</h1>
         <div class="text-right">
-            <a href="{{ path_for("user.create") }}" class="btn btn-success btn-sm mb-2">Створити</a>
+            <a href="{{ path_for("place.create") }}" class="btn btn-success btn-sm mb-2">Створити</a>
         </div>
-        {% if users|length %}
+        {% if places|length %}
             <table class="table table-sm table-striped">
                 <tr>
                     <th>ID</th>
-                    <th>Логін</th>
+                    <th>Назва</th>
                     <th class="w-15 text-center">Актуальність</th>
                     <th class="w-10 text-center">Огляд</th>
                 </tr>
-            {% for user in users %}
+            {% for place in places %}
                 <tr>
-                    <td>{{ user.id }}</td>    
-                    <td>{{ user.user_name }}</td>    
-                    <td class="text-center">{{ user.is_actual ? icon.check|raw : icon.times|raw }}</td>
+                    <td>{{ place.id }}</td>    
+                    <td>{{ place.full_name }}</td>    
+                    <td class="text-center">{{ place.is_actual ? icon.check|raw : icon.times|raw }}</td>
                     <td class="text-center">
-                        <a href="{{ path_for('user.details', {'id': user.id}) }}">{{ icon.search|raw }}</a>
+                        <a href="{{ path_for('place.details', {'id': place.id}) }}">{{ icon.search|raw }}</a>
                     </td>
                 </tr>
             {% endfor %}

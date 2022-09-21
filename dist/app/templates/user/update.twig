@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    Редагування користувача
+    Редагування користувача: {{ user.user_name }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -14,12 +14,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Редагування користувача</h1>
+    <h1 class="mb-4">Редагування користувача: {{ user.user_name }}</h1>
     <form action="{{ path_for('user.update') }}" method="POST">
         <div class="form-group">
-            <label for="username">Логін <span class="text-danger">*</span></label>
+            <label for="username">Логін</label>
             <input class="form-control" name="username" id="username" value="{{ user.user_name }}" {{ user.is_root ? 'disabled' }}>
         </div>
+        <ul>
+            {% for condition in conditions %}
+                <li class="small text-secondary">{{ condition }}</li>
+            {% endfor %}
+        </ul>
         <div class="form-group">
             <div class="form-check">
                 <label for="is_root" class="form-check-label">
@@ -34,7 +39,6 @@
                 </label>
             </div>
         </div>
-        <p class="text-danger">* {{ form.strvalid }}</p>
         <button class="btn btn-success btn-sm">
             Зберігти
         </button>

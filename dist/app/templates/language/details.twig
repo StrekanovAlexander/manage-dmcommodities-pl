@@ -1,44 +1,39 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    Користувач: {{ user.user_name }}
+    Мова: {{ language.short_name }}
 {% endblock %}
 
 {% block breadcrumb %}
     <ul class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
-        <li class="breadcrumb-item"><a href="{{ path_for('user.index') }}">Користувачи</a></li>
-        <li class="breadcrumb-item active">{{ user.user_name }}</li>
+        <li class="breadcrumb-item"><a href="{{ path_for('language.index') }}">Мови</a></li>
+        <li class="breadcrumb-item active">{{ language.short_name }}</li>
     </ul>
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Користувач: {{ user.user_name }}</h1>
+    <h1 class="mb-4">Мова: {{ language.short_name }}</h1>
     <table class="table table-striped table-sm">
         <tr>
-            <th>Ім'я</th>
-            <td>{{ user.user_name }}</td>
-        </tr>
-        <tr>
-            <th>Всі права</th>
-            <td>{{ user.is_root ? icon.check|raw : icon.times|raw }}</td>
+            <th>Коротка назва</th>
+            <td>{{ language.short_name }}</td>
         </tr>
         <tr>
             <th>Aктуальність</th>
             <td>
-                <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ user.id }}" data-name="{{ user.user_name }}">
-                    {{ user.is_actual ? icon.check|raw : icon.times|raw }}
+                <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ language.id }}" data-name="{{ language.short_name }}">
+                    {{ language.is_actual ? icon.check|raw : icon.times|raw }}
                 </a>
             </td>
         </tr>
     </table>
-    <div class="mt-4 d-flex justify-content-between">
-        <a class="btn btn-success btn-sm" href="{{ path_for('user.update', {'id': user.id}) }}">Редагувати</a>
-        <a class="btn btn-secondary btn-sm" href="{{ path_for('user.update.password', {'id': user.id}) }}">Зміна гасла</a>
+    <div class="mt-4">
+        <a class="btn btn-success btn-sm" href="{{ path_for('language.update', {'id': language.id}) }}">Редагувати</a>
     </div>
     <div class="modal fade" id="modal" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ path_for('user.actuality') }}" method="POST">
+            <form action="{{ path_for('language.actuality') }}" method="POST">
                 <div class="modal-content">
                     <div class="modal-header bg-danger">
                         <h5 class="modal-title text-white">Увага!</h5>
@@ -52,7 +47,7 @@
                         <button type="submit" class="btn btn-danger">Змінити</button>
                     </div>
                 </div>
-                <input type="hidden" class="input-hidden" name="id" id="{{ user.id }}">  
+                <input type="hidden" class="input-hidden" name="id" id="{{ language.id }}">  
                 {{ form.csrf|raw }}
             </form>    
         </div>
@@ -63,7 +58,7 @@
             var entity = button.data('entity')
             var name = button.data('name')
             var modal = $(this)
-            modal.find('.modal-body').text('Змінити актуальність користувача: ' + name + '?')
+            modal.find('.modal-body').text('Змінити актуальність: ' + name + '?')
             modal.find('.input-hidden').val(entity)
         })
     </script>

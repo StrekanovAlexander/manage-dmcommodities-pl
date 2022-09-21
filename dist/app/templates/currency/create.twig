@@ -1,0 +1,31 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Створення валюти
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('currency.index') }}">Валюти</a></li>
+        <li class="breadcrumb-item active">Створення</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 class="mb-4">Створення валюти</h1>
+        <form action="{{ path_for('currency.create') }}" method="POST">
+            <div class="form-group">
+                <label for="short_name">Коротка назва</label>
+                <input type="text" name="short_name" id="short_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="symbol">Символ</label>
+                <input type="text" name="symbol" id="symbol" class="form-control">
+            </div>
+            <button class="btn btn-success btn-sm">Зберігти</button> 
+            {{ form.csrf|raw }}
+        </form>
+    </div>
+{% endblock %}

@@ -14,13 +14,17 @@
 
 {% block content %}
     <div>
-        <h1>Створення користувача</h1>
+        <h1 class="mb-4">Створення користувача</h1>
         <form action="{{ path_for('user.create') }}" method="POST">
             <div class="form-group">
-                <label for="username">Логін  <span class="text-danger">*</span></label>
+                <label for="username">Логін</label>
                 <input type="text" name="username" id="username" class="form-control">
             </div>
-            <p class="text-danger">* {{ form.strvalid }}</p>
+            <ul>
+                {% for condition in conditions %}
+                    <li class="small text-secondary">{{ condition }}</li>
+                {% endfor %}
+            </ul>
             <button class="btn btn-success btn-sm">Зберігти</button> 
             {{ form.csrf|raw }}
         </form>
