@@ -42,6 +42,23 @@ $app->group('', function() {
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
+    $this->get('/products', 'ProductController:index')->setName('product.index');
+    $this->get('/product/create', 'ProductController:create')->setName('product.create');
+    $this->post('/product/create', 'ProductController:store');
+    $this->get('/product/details/{id}', 'ProductController:details')->setName('product.details');
+    $this->get('/product/update[/{id}]', 'ProductController:edit')->setName('product.update');
+    $this->post('/product/update', 'ProductController:update');
+    $this->post('/product/actuality', 'ProductController:actuality')->setName('product.actuality');
+})->add(new \App\Middleware\AuthMiddleware($container));
+
+$app->group('', function() {
+    $this->get('/product/translate/create[/{id}]', 'ProductTranslateController:create')->setName('product.translate.create');
+    $this->post('/product/translate/create', 'ProductTranslateController:store');
+    $this->get('/product/translate/update[/{id}]', 'ProductTranslateController:edit')->setName('product.translate.update');
+    $this->post('/product/translate/update', 'ProductTranslateController:update');
+})->add(new \App\Middleware\AuthMiddleware($container));
+
+$app->group('', function() {
     $this->get('/users', 'UserController:index')->setName('user.index');
     $this->get('/user/create', 'UserController:create')->setName('user.create');
     $this->post('/user/create', 'UserController:store');

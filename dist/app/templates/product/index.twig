@@ -1,0 +1,41 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Продукція
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item active">Продукція</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Продукція</h1>
+        <div class="text-right">
+            <a href="{{ path_for("product.create") }}" class="btn btn-success btn-sm mb-2">Створити</a>
+        </div>
+        {% if products|length %}
+            <table class="table table-sm table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th class="w-15 text-center">Актуальність</th>
+                    <th class="w-10 text-center">Огляд</th>
+                </tr>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>    
+                    <td>{{ product.full_name }}</td>    
+                    <td class="text-center">{{ product.is_actual ? icon.check|raw : icon.times|raw }}</td>
+                    <td class="text-center">
+                        <a href="{{ path_for('product.details', {'id': product.id}) }}">{{ icon.search|raw }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

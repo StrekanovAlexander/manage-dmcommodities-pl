@@ -26,7 +26,7 @@ class PlaceController extends Controller {
             return $res->withRedirect($this->router->pathFor('place.create'));
         }
 
-        $isExists = Place::where('full_name', $shortName)->count();
+        $isExists = Place::where('full_name', $fullName)->count();
         
         if ($isExists) {
             $this->flash->addMessage('error', Message::dataExists($fullName));

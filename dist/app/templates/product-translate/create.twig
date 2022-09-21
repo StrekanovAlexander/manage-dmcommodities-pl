@@ -1,0 +1,37 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Створення перекладу продукції {{ product.full_name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('product.index') }}">Продукція</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('product.details', {id: product.id}) }}">{{ product.full_name }}</a></li>
+        <li class="breadcrumb-item active">Створення перекладу</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 class="mb-4">Створення перекладу продукції: {{ product.full_name }}</h1>
+        <form action="{{ path_for('product.translate.create') }}" method="POST">
+            <div class="form-group">
+                <label for="full_name">Назва</label>
+                <input type="text" name="full_name" id="full_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="language_id">Мова</label>
+                <select class="form-control" name="language_id" id="language_id">
+                    {% for language in languages %}
+                        <option value="{{ language.id }}">{{ language.short_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-success btn-sm">Зберігти</button> 
+            <input type="hidden" name="product_id" id="product_id" value="{{ product.id }}"> 
+            {{ form.csrf|raw }}
+        </form>
+    </div>
+{% endblock %}

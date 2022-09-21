@@ -66,6 +66,14 @@ $container['PlaceTranslateController'] = function($c) {
     return new App\Controllers\PlaceTranslateController($c);
 };
 
+$container['ProductController'] = function($c) {
+    return new App\Controllers\ProductController($c);
+};
+
+$container['ProductTranslateController'] = function($c) {
+    return new App\Controllers\ProductTranslateController($c);
+};
+
 $container['UserController'] = function($c) {
     return new App\Controllers\UserController($c);
 }; 
