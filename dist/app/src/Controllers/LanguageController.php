@@ -102,9 +102,7 @@ class LanguageController extends Controller {
 
         $this->flash->addMessage('success', Message::dataUpdated($language->short_name));
         
-        return $res->withRedirect($this->router->pathFor('language.details', [
-            'id' => $language->id
-        ]));
+        return $res->withRedirect($this->router->pathFor('language.index'));
     }
  
 }

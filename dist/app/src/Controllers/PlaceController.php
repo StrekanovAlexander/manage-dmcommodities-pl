@@ -100,9 +100,7 @@ class PlaceController extends Controller {
 
         $this->flash->addMessage('success', Message::dataUpdated($place->full_name));
         
-        return $res->withRedirect($this->router->pathFor('place.details', [
-            'id' => $place->id
-        ]));
+        return $res->withRedirect($this->router->pathFor('place.index'));
     }
 
 }

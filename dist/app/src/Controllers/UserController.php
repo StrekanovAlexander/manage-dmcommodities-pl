@@ -145,9 +145,7 @@ class UserController extends Controller {
 
         $this->flash->addMessage('success', Message::dataUpdated($user->user_name));
         
-        return $res->withRedirect($this->router->pathFor('user.details', [
-            'id' => $user->id
-        ]));
+        return $res->withRedirect($this->router->pathFor('user.index'));
     }
 
     public function getLogin($req, $res) {

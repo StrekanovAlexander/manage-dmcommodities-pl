@@ -104,9 +104,7 @@ class CurrencyController extends Controller {
 
         $this->flash->addMessage('success', Message::dataUpdated($currency->short_name));
         
-        return $res->withRedirect($this->router->pathFor('currency.details', [
-            'id' => $currency->id
-        ]));
+        return $res->withRedirect($this->router->pathFor('currency.index'));
     }
  
 }

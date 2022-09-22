@@ -2,8 +2,8 @@
     
 namespace App\Controllers;
 
-use App\Models\product;
-use App\Models\productTranslate;
+use App\Models\Product;
+use App\Models\ProductTranslate;
 use App\Models\Language;
 use App\Common\Message;
 

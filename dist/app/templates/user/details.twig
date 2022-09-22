@@ -26,9 +26,7 @@
         <tr>
             <th>Aктуальність</th>
             <td>
-                <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ user.id }}" data-name="{{ user.user_name }}">
-                    {{ user.is_actual ? icon.check|raw : icon.times|raw }}
-                </a>
+                {{ user.is_actual ? icon.check|raw : icon.times|raw }}
             </td>
         </tr>
     </table>
@@ -36,35 +34,4 @@
         <a class="btn btn-success btn-sm" href="{{ path_for('user.update', {'id': user.id}) }}">Редагувати</a>
         <a class="btn btn-secondary btn-sm" href="{{ path_for('user.update.password', {'id': user.id}) }}">Зміна гасла</a>
     </div>
-    <div class="modal fade" id="modal" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ path_for('user.actuality') }}" method="POST">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger">
-                        <h5 class="modal-title text-white">Увага!</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal">
-                            {{ icon.times|raw }}
-                        </button>
-                    </div>
-                    <div class="modal-body text-center h5 my-4"></div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Скасувати</button>
-                        <button type="submit" class="btn btn-danger">Змінити</button>
-                    </div>
-                </div>
-                <input type="hidden" class="input-hidden" name="id" id="{{ user.id }}">  
-                {{ form.csrf|raw }}
-            </form>    
-        </div>
-    </div>
-    <script>
-        $('#modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var entity = button.data('entity')
-            var name = button.data('name')
-            var modal = $(this)
-            modal.find('.modal-body').text('Змінити актуальність користувача: ' + name + '?')
-            modal.find('.input-hidden').val(entity)
-        })
-    </script>
 {% endblock %}

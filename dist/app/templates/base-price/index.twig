@@ -32,7 +32,7 @@
                     <td>{{ base_price.product.full_name }}</td>    
                     <td class="text-right">{{ base_price.price }}</td>    
                     <td class="text-center">
-                        <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ base_price.id }}" data-name="{{ base_price.product.full_name }}">
+                        <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ base_price.id }}" data-title="{{ base_price.product.full_name }}">
                             {{ base_price.is_actual ? icon.check|raw : icon.times|raw }}
                         </a>
                     </td>
@@ -66,13 +66,12 @@
                 </div>
             </div>
             <script>
-                $('#modal').on('show.bs.modal', function (event) {
-                    var button = $(event.relatedTarget)
+                $('#modal').on('show.bs.modal', function (ev) {
+                    var button = $(ev.relatedTarget)
                     var entity = button.data('entity')
-                    var name = button.data('name')
-                    var modal = $(this)
-                    modal.find('.modal-body').text('Змінити актуальність: ' + name + '?')
-                    modal.find('.input-hidden').val(entity)
+                    var title = button.data('title')
+                    $(this).find('.modal-body').text('Змінити актуальність: ' + title + '?')
+                    $(this).find('.input-hidden').val(entity)
                 })
             </script>
         {% endif %}

@@ -29,13 +29,47 @@
                 <tr>
                     <td>{{ language.id }}</td>    
                     <td>{{ language.short_name }}</td>    
-                    <td class="text-center">{{ language.is_actual ? icon.check|raw : icon.times|raw }}</td>
+                    <td class="text-center">
+                        <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ language.id }}" data-title="{{ language.short_name }}">
+                            {{ language.is_actual ? icon.check|raw : icon.times|raw }}
+                        </a>
+                    </td>
                     <td class="text-center">
                         <a href="{{ path_for('language.details', {'id': language.id}) }}">{{ icon.search|raw }}</a>
                     </td>
                 </tr>
             {% endfor %}
             </table>
+            <div class="modal fade" id="modal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{{ path_for('language.actuality') }}" method="POST">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <h5 class="modal-title text-white">Увага!</h5>
+                                <button type="button" class="close text-white" data-dismiss="modal">
+                                    {{ icon.times|raw }}
+                                </button>
+                            </div>
+                            <div class="modal-body text-center h5 my-4"></div>
+                            <div class="modal-footer d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Скасувати</button>
+                                <button type="submit" class="btn btn-danger">Змінити</button>
+                            </div>
+                        </div>
+                        <input type="hidden" class="input-hidden" name="id" id="id">  
+                        {{ form.csrf|raw }}
+                    </form>    
+                </div>
+            </div>
+            <script>
+                $('#modal').on('show.bs.modal', function (ev) {
+                    var button = $(ev.relatedTarget)
+                    var entity = button.data('entity')
+                    var title = button.data('title')
+                    $(this).find('.modal-body').text('Змінити актуальність: ' + title + '?')
+                    $(this).find('.input-hidden').val(entity)
+                })
+            </script>
         {% endif %}
     </div>
 {% endblock %}

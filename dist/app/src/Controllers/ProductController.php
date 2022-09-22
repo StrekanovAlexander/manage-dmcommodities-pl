@@ -100,9 +100,7 @@ class ProductController extends Controller {
 
         $this->flash->addMessage('success', Message::dataUpdated($product->full_name));
         
-        return $res->withRedirect($this->router->pathFor('product.details', [
-            'id' => $product->id
-        ]));
+        return $res->withRedirect($this->router->pathFor('product.index'));
     }
 
 }
