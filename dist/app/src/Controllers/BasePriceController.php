@@ -22,13 +22,19 @@ class BasePriceController extends Controller {
  
     public function store($req, $res) {
         $productId = $req->getParam('product_id');
+
+        if (!$productId) {
+            $this->flash->addMessage('error', Message::dataEmpty());
+            return $res->withRedirect($this->router->pathFor('base.price.create'));
+        }
+                
         $price = $req->getParam('price');
         $product = Product::find($productId);
         $isExists = BasePrice::where('product_id', $productId)->count();
         
         if ($isExists) {
             $this->flash->addMessage('error', Message::dataExists($product->full_name));
-            return $res->withRedirect($this->router->pathFor('base.price.index'));
+            return $res->withRedirect($this->router->pathFor('base.price.create'));
         }
 
         BasePrice::create([
