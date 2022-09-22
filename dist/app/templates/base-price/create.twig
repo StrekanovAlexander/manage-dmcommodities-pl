@@ -1,0 +1,35 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Додавання продукції в прайс
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('base.price.index') }}">Базові ціни</a></li>
+        <li class="breadcrumb-item active">Додавання продукції в прайс</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 class="mb-4">Додавання продукції в прайс</h1>
+        <form action="{{ path_for('base.price.create') }}" method="POST">
+            <div class="form-group">
+                <label for="product_id">Продукція</label>
+                <select class="form-control" name="product_id" id="product_id">
+                    {% for product in products %}
+                        <option value="{{ product.id }}">{{ product.full_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Ціна</label>
+                <input type="number" value="0" name="price" id="price" class="form-control">
+            </div>
+            <button class="btn btn-success btn-sm">Зберігти</button> 
+            {{ form.csrf|raw }}
+        </form>
+    </div>
+{% endblock %}

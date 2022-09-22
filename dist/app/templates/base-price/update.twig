@@ -1,0 +1,28 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Редагування базової ціни: {{ base_price.product.full_name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('base.price.index') }}">Базові ціни</a></li>
+        <li class="breadcrumb-item active">Редагування</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Редагування базової ціни: {{ base_price.product.full_name }}</h1>
+    <form action="{{ path_for('base.price.update') }}" method="POST">
+        <div class="form-group">
+            <label for="price">Ціна</label>
+            <input type="number" value="{{ base_price.price }}" name="price" id="price" class="form-control">
+        </div>
+        <button class="btn btn-success btn-sm">
+            Зберігти
+        </button>
+        <input type="hidden" name="id" id="id" value="{{ base_price.id }}">
+        {{ form.csrf|raw }}
+    </form>
+{% endblock %}

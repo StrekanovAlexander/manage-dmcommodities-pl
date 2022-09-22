@@ -5,6 +5,15 @@ $app->group('', function() {
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
+    $this->get('/base-prices', 'BasePriceController:index')->setName('base.price.index');
+    $this->get('/base-price/create', 'BasePriceController:create')->setName('base.price.create');
+    $this->post('/base-price/create', 'BasePriceController:store');
+    $this->get('/base-price/update[/{id}]', 'BasePriceController:edit')->setName('base.price.update');
+    $this->post('/base-price/update', 'BasePriceController:update');
+    $this->post('/base-price/actuality', 'BasePriceController:actuality')->setName('base.price.actuality');
+})->add(new \App\Middleware\AuthMiddleware($container));
+
+$app->group('', function() {
     $this->get('/currencies', 'CurrencyController:index')->setName('currency.index');
     $this->get('/currency/create', 'CurrencyController:create')->setName('currency.create');
     $this->post('/currency/create', 'CurrencyController:store');

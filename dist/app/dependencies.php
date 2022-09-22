@@ -46,6 +46,10 @@ $container['flash'] = function() {
     return new \Slim\Flash\Messages;
 };
 
+$container['BasePriceController'] = function($c) {
+    return new App\Controllers\BasePriceController($c);
+};
+
 $container['HomeController'] = function($c) {
     return new App\Controllers\HomeController($c);
 };
