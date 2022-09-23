@@ -80,7 +80,8 @@ class BasePriceController extends Controller {
         $basePrices = BasePrice::where('is_actual', true)->get();
 
         foreach($basePrices as $basePrice) {
-            $productTranslates = ProductTranslate::where('product_id', $basePrice->product_id)->get();
+            $productTranslates = ProductTranslate::where('is_actual', true)
+                ->where('product_id', $basePrice->product_id)->get();
             $translates = [];
             foreach($productTranslates as $productTranslate) {    
                 $translates[] = [
