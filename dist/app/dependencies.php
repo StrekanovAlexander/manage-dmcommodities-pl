@@ -82,7 +82,20 @@ $container['UserController'] = function($c) {
     return new App\Controllers\UserController($c);
 }; 
 
+$container['notFoundHandler'] = function ($c) {
+    return function ($req, $res) use ($c) {
+        return $c['view']->render($res->withStatus(404), 'common/404.twig');
+    };
+};
+
+$container['errorHandler'] = function () {
+    return function ($req, $res) {
+        return $res->withStatus(500)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Wrong request');
+    };
+};
+
 $app->add(new App\Middleware\ViewFormMiddleware($container));
 $app->add(new App\Middleware\ViewIconMiddleware($container));
-
 $app->add($container->csrf);

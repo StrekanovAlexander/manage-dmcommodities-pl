@@ -1,0 +1,12 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    404. Сторінка не знайдена
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <p>404. Сторінка не знайдена</p>
+        <a href="{{ path_for('home.index') }}">На головну</a>
+    </div>
+{% endblock %}
