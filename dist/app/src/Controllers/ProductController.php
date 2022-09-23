@@ -98,8 +98,6 @@ class ProductController extends Controller {
             'is_actual' => $product->is_actual ? false : true,
         ]);
 
-        $this->flash->addMessage('success', Message::dataUpdated($product->full_name));
-        
         return $res->withRedirect($this->router->pathFor('product.index'));
     }
 

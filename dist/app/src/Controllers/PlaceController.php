@@ -97,9 +97,7 @@ class PlaceController extends Controller {
         $place->update([
             'is_actual' => $place->is_actual ? false : true,
         ]);
-
-        $this->flash->addMessage('success', Message::dataUpdated($place->full_name));
-        
+       
         return $res->withRedirect($this->router->pathFor('place.index'));
     }
 

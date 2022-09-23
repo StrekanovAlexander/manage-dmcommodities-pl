@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BasePrice;
 use App\Models\Product;
+use App\Models\ProductTranslate;
 use App\Common\Message;
 
 class BasePriceController extends Controller {
@@ -71,9 +72,32 @@ class BasePriceController extends Controller {
             'is_actual' => $basePrice->is_actual ? false : true,
         ]);
 
-        $this->flash->addMessage('success', Message::dataUpdated($basePrice->product->full_name));
-        
         return $res->withRedirect($this->router->pathFor('base.price.index'));
     }
+
+    public function json($req, $res) {
+        $json = [];
+        $basePrices = BasePrice::where('is_actual', true)->get();
+
+        foreach($basePrices as $basePrice) {
+            $productTranslates = ProductTranslate::where('product_id', $basePrice->product_id)->get();
+            $translates = [];
+            foreach($productTranslates as $productTranslate) {    
+                $translates[] = [$productTranslate->language->short_name => $productTranslate->full_name];
+            }    
+            $json[] = [
+                'id' => $basePrice->product_id,
+                'title' => $basePrice->product->full_name,
+                'price' => $basePrice->price,
+                'translates' => $translates    
+            ];         
+        } 
+
+        $res->getBody()->write(json_encode($json, JSON_UNESCAPED_UNICODE));
+        return  $res->withHeader('Content-type', 'application/json; charset=utf-8')
+            ->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+   }
 
 }

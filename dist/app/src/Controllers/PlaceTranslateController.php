@@ -72,19 +72,9 @@ class PlaceTranslateController extends Controller {
         }
         
         $placeTranslate = PlaceTranslate::find($req->getParam('id'));
-        $isExists = PlaceTranslate::where('language_id', $languageId)
-            ->where('id', '<>', $placeTranslate->id)->count();
         
-        if ($isExists) {
-            $this->flash->addMessage('error', Message::dataRefExists());
-            return $res->withRedirect($this->router->pathFor('place.translate.update', [
-                'id' => $req->getParam('id')
-            ]));     
-        }
-
         $placeTranslate->update([
             'full_name' => $fullName,
-            'language_id' => $languageId 
         ]);
 
         $this->flash->addMessage('success', Message::dataUpdated($shortName));
@@ -92,6 +82,19 @@ class PlaceTranslateController extends Controller {
         return $res->withRedirect($this->router->pathFor('place.details', [
             'id' => $placeTranslate->place_id
         ]));
+    }
+
+    public function actuality($req, $res) {
+        $placeTranslate = PlaceTranslate::find($req->getParam('id'));
+        $placeTranslate->update([
+            'is_actual' => $placeTranslate->is_actual ? false : true,
+        ]);
+
+        $place = Place::find($placeTranslate->place_id);
+        return $this->view->render($res, 'place/details.twig', [
+            'place' => $place,
+            'place_translates' => PlaceTranslate::where('place_id', $place->id)->get()
+        ]);
     }
 
 }

@@ -100,8 +100,6 @@ class LanguageController extends Controller {
             'is_actual' => $language->is_actual ? false : true,
         ]);
 
-        $this->flash->addMessage('success', Message::dataUpdated($language->short_name));
-        
         return $res->withRedirect($this->router->pathFor('language.index'));
     }
  

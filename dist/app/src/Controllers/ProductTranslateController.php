@@ -72,19 +72,8 @@ class ProductTranslateController extends Controller {
         }
         
         $productTranslate = ProductTranslate::find($req->getParam('id'));
-        $isExists = ProductTranslate::where('language_id', $languageId)
-            ->where('id', '<>', $productTranslate->id)->count();
-        
-        if ($isExists) {
-            $this->flash->addMessage('error', Message::dataRefExists());
-            return $res->withRedirect($this->router->pathFor('product.translate.update', [
-                'id' => $req->getParam('id')
-            ]));     
-        }
-
         $productTranslate->update([
             'full_name' => $fullName,
-            'language_id' => $languageId 
         ]);
 
         $this->flash->addMessage('success', Message::dataUpdated($shortName));
@@ -92,6 +81,19 @@ class ProductTranslateController extends Controller {
         return $res->withRedirect($this->router->pathFor('product.details', [
             'id' => $productTranslate->product_id
         ]));
+    }
+
+    public function actuality($req, $res) {
+        $productTranslate = ProductTranslate::find($req->getParam('id'));
+        $productTranslate->update([
+            'is_actual' => $productTranslate->is_actual ? false : true,
+        ]);
+
+        $product = Product::find($productTranslate->product_id);
+        return $this->view->render($res, 'product/details.twig', [
+            'product' => $product,
+            'product_translates' => ProductTranslate::where('product_id', $product->id)->get()
+        ]);
     }
 
 }

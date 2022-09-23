@@ -48,6 +48,7 @@ $app->group('', function() {
     $this->post('/place/translate/create', 'PlaceTranslateController:store');
     $this->get('/place/translate/update[/{id}]', 'PlaceTranslateController:edit')->setName('place.translate.update');
     $this->post('/place/translate/update', 'PlaceTranslateController:update');
+    $this->get('/place/translate/actuality', 'PlaceTranslateController:actuality')->setName('place.translate.actuality');
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
@@ -65,6 +66,7 @@ $app->group('', function() {
     $this->post('/product/translate/create', 'ProductTranslateController:store');
     $this->get('/product/translate/update[/{id}]', 'ProductTranslateController:edit')->setName('product.translate.update');
     $this->post('/product/translate/update', 'ProductTranslateController:update');
+    $this->get('/product/translate/actuality', 'ProductTranslateController:actuality')->setName('product.translate.actuality');
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
@@ -88,3 +90,5 @@ $app->group('', function() {
     $this->get('/login', 'UserController:getLogin')->setName('user.login');
     $this->post('/login', 'UserController:postLogin');
 })->add(new \App\Middleware\GuestMiddleware($container));
+
+$app->get('/base-price/json', 'BasePriceController:json')->setName('base.price.json');

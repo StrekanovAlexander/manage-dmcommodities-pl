@@ -44,6 +44,9 @@
                 </tr>
             {% endfor %}
             </table>
+            <div class="text-right">
+                <a href="{{ path_for('base.price.json') }}" target="_blank" class="btn btn-link">JSON</a>
+            </div>
             <div class="modal fade" id="modal" aria-hidden="true">
                 <div class="modal-dialog">
                     <form action="{{ path_for('base.price.actuality') }}" method="POST">

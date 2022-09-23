@@ -24,12 +24,49 @@
             <td>
                 {% if place_translates|length %}
                     {% for place_translate in place_translates %}
-                        <div>
-                            <a href="{{ path_for('place.translate.update', {
-                                id: place_translate.id, lang: place_translate.language_id
-                                }) }}" class="text-danger"><small><u>{{ place_translate.language.short_name }}</u></small></a> 
-                                {{ place_translate.full_name }} 
-                        </div>               
+                        <div class="d-flex justify-content-between"> 
+                            <span>
+                                <a href="{{ path_for('place.translate.update', {
+                                    id: place_translate.id, lang: place_translate.language_id
+                                    }) }}" class="w-25">{{ place_translate.language.short_name }}
+                                </a> {{ place_translate.full_name }}
+                            </span>
+                            <span>
+                                <a href="#" data-toggle="modal" data-target="#modal" data-entity="{{ place_translate.id }}" data-title="{{ place_translate.full_name }}">
+                                    {{ place_translate.is_actual ? icon.check|raw : icon.times|raw }}
+                                </a>
+                            </span> 
+                        </div>
+                        <div class="modal fade" id="modal" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form action="{{ path_for('place.translate.actuality') }}" method="GET">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="modal-title text-white">Увага!</h5>
+                                            <button type="button" class="close text-white" data-dismiss="modal">
+                                                {{ icon.times|raw }}
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center h5 my-4"></div>
+                                        <div class="modal-footer d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Скасувати</button>
+                                            <button type="submit" class="btn btn-danger">Змінити</button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" class="input-hidden" name="id" id="id">  
+                                    {{ form.csrf|raw }}
+                                </form>    
+                            </div>
+                        </div>
+                        <script>
+                            $('#modal').on('show.bs.modal', function (ev) {
+                                var button = $(ev.relatedTarget)
+                                var entity = button.data('entity')
+                                var title = button.data('title')
+                                $(this).find('.modal-body').text('Змінити актуальність перекладу: ' + title + '?')
+                                $(this).find('.input-hidden').val(entity)
+                            })
+                        </script>     
                     {% endfor %}
                 {% else %}
                     Немає перекладів

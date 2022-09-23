@@ -102,8 +102,6 @@ class CurrencyController extends Controller {
             'is_actual' => $currency->is_actual ? false : true,
         ]);
 
-        $this->flash->addMessage('success', Message::dataUpdated($currency->short_name));
-        
         return $res->withRedirect($this->router->pathFor('currency.index'));
     }
  

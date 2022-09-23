@@ -143,8 +143,6 @@ class UserController extends Controller {
             'is_actual' => $user->is_actual ? false : true,
         ]);
 
-        $this->flash->addMessage('success', Message::dataUpdated($user->user_name));
-        
         return $res->withRedirect($this->router->pathFor('user.index'));
     }
 
