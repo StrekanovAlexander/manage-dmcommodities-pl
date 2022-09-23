@@ -83,7 +83,10 @@ class BasePriceController extends Controller {
             $productTranslates = ProductTranslate::where('product_id', $basePrice->product_id)->get();
             $translates = [];
             foreach($productTranslates as $productTranslate) {    
-                $translates[] = [$productTranslate->language->short_name => $productTranslate->full_name];
+                $translates[] = [
+                    'language' => $productTranslate->language->short_name,
+                    'title' => $productTranslate->full_name
+                ];
             }    
             $json[] = [
                 'id' => $basePrice->product_id,
