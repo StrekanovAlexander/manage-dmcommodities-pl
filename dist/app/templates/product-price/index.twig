@@ -1,0 +1,77 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Ціни на продукцію
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item active">Ціни на продукцію</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Ціни на продукцію</h1>
+        <div class="text-right mb-2">
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal">
+                Оновити прайс
+            </button>
+        </div>
+        {% if product_prices|length %}
+            <table class="table table-sm table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Продукція</th>
+                    <th>Місто</th>
+                    <th class="text-right">Базова ціна</th>
+                    <th class="text-right">Ціна логістики</th>
+                    <th class="text-right">Ціна продукції</th>
+                    <th class="text-center">Актуальність</th>
+                </tr>
+            {% for product_price in product_prices %}
+                <tr>
+                    <td>{{ product_price.id }}</td>    
+                    <td>{{ product_price.product.full_name }}</td>    
+                    <td>{{ product_price.place.full_name }}</td>  
+                    <td class="text-right">{{ product_price.base_price }}</td> 
+                    <td class="text-right">{{ product_price.logistic_price }}</td>    
+                    <td class="text-right">{{ product_price.price }}</td>    
+                    <td class="text-center">
+                        {{ product_price.is_actual ? icon.check|raw : icon.times|raw }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            <div class="text-right">
+                <a href="{{ path_for('product.price.json') }}" target="_blank" class="btn btn-link">JSON</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="modal fade" id="modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ path_for('product.price.refresh') }}" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title text-white">Увага!</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal">
+                            {{ icon.times|raw }}
+                        </button>
+                    </div>
+                    <div class="modal-body text-center h5 my-4"></div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Скасувати</button>
+                        <button type="submit" class="btn btn-danger">Продовжити</button>
+                    </div>
+                </div>
+                {{ form.csrf|raw }}
+            </form>    
+        </div>
+    </div>
+    <script>
+        $('#modal').on('show.bs.modal', function() {
+            $(this).find('.modal-body').text('Оновити прайс ?')
+        })
+    </script>
+{% endblock %}

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\LogisticPrice;
 use App\Models\Place;
-// use App\Models\ProductTranslate;
 use App\Common\Message;
 
 class LogisticPriceController extends Controller {

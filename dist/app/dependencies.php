@@ -78,6 +78,10 @@ $container['ProductController'] = function($c) {
     return new App\Controllers\ProductController($c);
 };
 
+$container['ProductPriceController'] = function($c) {
+    return new App\Controllers\ProductPriceController($c);
+};
+
 $container['ProductTranslateController'] = function($c) {
     return new App\Controllers\ProductTranslateController($c);
 };

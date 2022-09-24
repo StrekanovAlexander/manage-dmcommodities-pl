@@ -79,6 +79,11 @@ $app->group('', function() {
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
+    $this->get('/product-prices', 'ProductPriceController:index')->setName('product.price.index');
+    $this->post('/product-prices/refresh', 'ProductPriceController:refresh')->setName('product.price.refresh');
+})->add(new \App\Middleware\AuthMiddleware($container));
+
+$app->group('', function() {
     $this->get('/users', 'UserController:index')->setName('user.index');
     $this->get('/user/create', 'UserController:create')->setName('user.create');
     $this->post('/user/create', 'UserController:store');
@@ -101,3 +106,4 @@ $app->group('', function() {
 })->add(new \App\Middleware\GuestMiddleware($container));
 
 $app->get('/base-prices/json', 'BasePriceController:json')->setName('base.price.json');
+$app->get('/product-prices/json', 'ProductPriceController:json')->setName('product.price.json');

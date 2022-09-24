@@ -16,6 +16,8 @@
                         Прайс
                     </button>
                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path_for('product.price.index') }}">Ціни на продукцію</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ path_for('base.price.index') }}">Базові ціни</a>
                         <a class="dropdown-item" href="{{ path_for('logistic.price.index') }}">Ціни на логістику</a>
                     </div>
