@@ -91,4 +91,4 @@ $app->group('', function() {
     $this->post('/login', 'UserController:postLogin');
 })->add(new \App\Middleware\GuestMiddleware($container));
 
-$app->get('/base-price/json', 'BasePriceController:json')->setName('base.price.json');
+$app->get('/base-prices/json', 'BasePriceController:json')->setName('base.price.json');

@@ -80,28 +80,33 @@ class BasePriceController extends Controller {
         $basePrices = BasePrice::where('is_actual', true)->get();
 
         foreach($basePrices as $basePrice) {
-            $productTranslates = ProductTranslate::where('is_actual', true)
-                ->where('product_id', $basePrice->product_id)->get();
-            $translates = [];
-            foreach($productTranslates as $productTranslate) {    
-                $translates[] = [
-                    'language' => $productTranslate->language->short_name,
-                    'title' => $productTranslate->full_name
-                ];
-            }    
             $json[] = [
                 'id' => $basePrice->product_id,
                 'title' => $basePrice->product->full_name,
                 'price' => $basePrice->price,
-                'translates' => $translates    
+                'translates' => $this->productTranslates($basePrice)    
             ];         
         } 
 
         $res->getBody()->write(json_encode($json, JSON_UNESCAPED_UNICODE));
+        
         return  $res->withHeader('Content-type', 'application/json; charset=utf-8')
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
    }
+
+    private function productTranslates($basePrice) {
+        $productTranslates = ProductTranslate::where('is_actual', true)
+            ->where('product_id', $basePrice->product_id)->get();
+        $translates = [];
+        foreach($productTranslates as $productTranslate) {    
+            $translates[] = [
+                'language' => $productTranslate->language->short_name,
+                'title' => $productTranslate->full_name
+            ];
+        } 
+        return $translates;
+    }          
 
 }
