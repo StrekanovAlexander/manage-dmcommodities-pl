@@ -60,6 +60,10 @@ $container['CurrencyController'] = function($c) {
 
 $container['LanguageController'] = function($c) {
     return new App\Controllers\LanguageController($c);
+};
+
+$container['LogisticPriceController'] = function($c) {
+    return new App\Controllers\LogisticPriceController($c);
 }; 
 
 $container['PlaceController'] = function($c) {

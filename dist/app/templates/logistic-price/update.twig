@@ -1,0 +1,28 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Редагування ціни на логістику: {{ logistic_price.place.full_name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path_for('home.index') }}">Головна</a></li>
+        <li class="breadcrumb-item"><a href="{{ path_for('logistic.price.index') }}">Ціни на логістику</a></li>
+        <li class="breadcrumb-item active">Редагування</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Редагування ціни на логістику: {{ logistic_price.place.full_name }}</h1>
+    <form action="{{ path_for('logistic.price.update') }}" method="POST">
+        <div class="form-group">
+            <label for="price">Ціна</label>
+            <input type="number" value="{{ logistic_price.price }}" name="price" id="price" class="form-control">
+        </div>
+        <button class="btn btn-success btn-sm">
+            Зберігти
+        </button>
+        <input type="hidden" name="id" id="id" value="{{ logistic_price.id }}">
+        {{ form.csrf|raw }}
+    </form>
+{% endblock %}

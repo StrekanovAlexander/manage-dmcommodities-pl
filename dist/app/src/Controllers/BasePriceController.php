@@ -17,7 +17,7 @@ class BasePriceController extends Controller {
 
     public function create($req, $res) {
         return $this->view->render($res, 'base-price/create.twig', [
-            'products' => Product::orderBy('full_name')->get()
+            'products' => Product::orderBy('full_name')->where('is_actual', true)->get()
         ]);
     }
  

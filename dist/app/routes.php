@@ -34,6 +34,15 @@ $app->group('', function() {
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
+    $this->get('/logistic-prices', 'LogisticPriceController:index')->setName('logistic.price.index');
+    $this->get('/logistic-price/create', 'LogisticPriceController:create')->setName('logistic.price.create');
+    $this->post('/logistic-price/create', 'LogisticPriceController:store');
+    $this->get('/logistic-price/update[/{id}]', 'LogisticPriceController:edit')->setName('logistic.price.update');
+    $this->post('/logistic-price/update', 'LogisticPriceController:update');
+    $this->post('/logistic-price/actuality', 'LogisticPriceController:actuality')->setName('logistic.price.actuality');
+})->add(new \App\Middleware\AuthMiddleware($container));
+
+$app->group('', function() {
     $this->get('/places', 'PlaceController:index')->setName('place.index');
     $this->get('/place/create', 'PlaceController:create')->setName('place.create');
     $this->post('/place/create', 'PlaceController:store');
