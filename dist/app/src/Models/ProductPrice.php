@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Models;
+
 use \Illuminate\Database\Eloquent\Model;
+use App\Models\BasePrice;
+use App\Models\LogisticPrice;
 
 class ProductPrice extends Model {
     protected $table = 'product_prices';
@@ -30,6 +33,29 @@ class ProductPrice extends Model {
                 'base_prices.price as base_price',
                 'logistic_prices.price as logistic_price'
             ]);
+    }
+
+    public static function rebuild() {
+        $basePrices = BasePrice::orderBy('product_id')->get();
+        foreach($basePrices as $basePrice) {
+            $logisticPrices = LogisticPrice::get();
+            foreach($logisticPrices as $logisticPrice) {
+                $productPrice = self::where('product_id', $basePrice->product_id)
+                    ->where('place_id', $logisticPrice->place_id)->first();
+                $price = $logisticPrice->price + $basePrice->price;
+                $isActual = $logisticPrice->is_actual && $basePrice->is_actual;   
+                if ($productPrice) {
+                    $productPrice->update(['price' => $price, 'is_actual' => $isActual]);
+                } else {    
+                    self::create([
+                        'product_id' => $basePrice->product_id,
+                        'place_id' => $logisticPrice->place_id,
+                        'price' => $price,
+                        'is_actual' => $isActual
+                    ]);
+                }    
+            }
+        } 
     }
     
 }

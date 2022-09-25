@@ -80,7 +80,7 @@ $app->group('', function() {
 
 $app->group('', function() {
     $this->get('/product-prices', 'ProductPriceController:index')->setName('product.price.index');
-    $this->post('/product-prices/refresh', 'ProductPriceController:refresh')->setName('product.price.refresh');
+    $this->post('/product-prices/rebuild', 'ProductPriceController:rebuild')->setName('product.price.rebuild');
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {
