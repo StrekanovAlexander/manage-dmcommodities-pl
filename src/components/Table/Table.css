@@ -1,0 +1,33 @@
+.table-price {
+    margin-top: 2em;
+}
+
+.table-price th {
+    text-align: center;
+    width: 100px;
+}
+
+.table-price th:first-child {
+    width: 125px;
+} 
+
+.table-price td {
+    font-weight: bold;
+    text-align: right;
+} 
+
+.table-price td:first-child {
+    text-align: left;
+} 
+
+.table-price input {
+    border: 0;
+    font-weight: bold;
+    text-align: right;
+    width: 100%;
+}
+
+.table-price td div {
+    display: block;
+    padding-right: 1.25em;
+}

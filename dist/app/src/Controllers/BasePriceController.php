@@ -85,12 +85,12 @@ class BasePriceController extends Controller {
 
     public function json($req, $res) {
         $json = [];
-        $basePrices = BasePrice::where('is_actual', true)->get();
+        $basePrices = BasePrice::actual();
 
         foreach($basePrices as $basePrice) {
             $json[] = [
                 'id' => $basePrice->product_id,
-                'title' => $basePrice->product->full_name,
+                'title' => $basePrice->product_name,
                 'price' => $basePrice->price,
                 'translates' => $this->productTranslates($basePrice)    
             ];         

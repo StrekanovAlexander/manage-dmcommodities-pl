@@ -1,4 +1,5 @@
-/dist/vendor
 /dist/composer.lock
+/dist/js/bundle.js.LICENSE.txt
+/dist/vendor
 /node_modules
 /package-lock.json
