@@ -39,6 +39,18 @@ class ProductPrice extends Model {
             ]);
     }
 
+    public static function actualByPlace($placeId) {
+        return self::query()
+            ->join('products', 'product_prices.product_id', '=', 'products.id')
+            ->orderBy('products.full_name')
+            ->where('product_prices.is_actual', true)
+            ->where('product_prices.place_id', $placeId)
+            ->get([
+                'product_prices.*', 
+                'products.full_name as product_name'
+            ]);
+    }
+
     public static function rebuild() {
         $basePrices = BasePrice::orderBy('product_id')->get();
         foreach($basePrices as $basePrice) {

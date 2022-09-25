@@ -15,5 +15,16 @@ class LogisticPrice extends Model {
     public function place() {
         return $this->belongsTo(Place::class, 'place_id');
     }
+
+    public static function actual() {
+        return self::query()
+            ->join('places', 'logistic_prices.place_id', '=', 'places.id')
+            ->orderBy('places.full_name')
+            ->where('logistic_prices.is_actual', true)
+            ->get([
+                'logistic_prices.*', 
+                'places.full_name as place_name',
+            ]);
+    }
     
 }
