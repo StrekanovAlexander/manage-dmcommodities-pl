@@ -1,2 +1,4 @@
 /dist/vendor
 /dist/composer.lock
+/node_modules
+/package-lock.json
