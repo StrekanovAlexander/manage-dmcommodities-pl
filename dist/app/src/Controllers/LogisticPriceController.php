@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\LogisticPrice;
 use App\Models\Place;
+use App\Models\ProductPrice;
 use App\Common\Message;
 
 class LogisticPriceController extends Controller {
@@ -41,6 +42,8 @@ class LogisticPriceController extends Controller {
             'place_id' => $placeId,
             'price' => $price
         ]);
+
+        ProductPrice::rebuild();
         
         $this->flash->addMessage('success', Message::dataCreated($place->full_name));
         return $res->withRedirect($this->router->pathFor('logistic.price.index'));
@@ -59,6 +62,8 @@ class LogisticPriceController extends Controller {
         $logisticPrice->update([
             'price' => $req->getParam('price'),
         ]);
+
+        ProductPrice::rebuild();
  
         $this->flash->addMessage('success', Message::dataUpdated($logisticPrice->place->full_name));
         return $res->withRedirect($this->router->pathFor('logistic.price.index'));
@@ -71,41 +76,9 @@ class LogisticPriceController extends Controller {
             'is_actual' => $logisticPrice->is_actual ? false : true,
         ]);
 
+        ProductPrice::rebuild();
+
         return $res->withRedirect($this->router->pathFor('logistic.price.index'));
     }
-
-//     public function json($req, $res) {
-//         $json = [];
-//         $basePrices = BasePrice::where('is_actual', true)->get();
-// 
-//         foreach($basePrices as $basePrice) {
-//             $json[] = [
-//                 'id' => $basePrice->product_id,
-//                 'title' => $basePrice->product->full_name,
-//                 'price' => $basePrice->price,
-//                 'translates' => $this->productTranslates($basePrice)    
-//             ];         
-//         } 
-// 
-//         $res->getBody()->write(json_encode($json, JSON_UNESCAPED_UNICODE));
-//         
-//         return  $res->withHeader('Content-type', 'application/json; charset=utf-8')
-//             ->withHeader('Access-Control-Allow-Origin', '*')
-//             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-//             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-//    }
-// 
-//     private function productTranslates($basePrice) {
-//         $productTranslates = ProductTranslate::where('is_actual', true)
-//             ->where('product_id', $basePrice->product_id)->get();
-//         $translates = [];
-//         foreach($productTranslates as $productTranslate) {    
-//             $translates[] = [
-//                 'language' => $productTranslate->language->short_name,
-//                 'title' => $productTranslate->full_name
-//             ];
-//         } 
-//         return $translates;
-//     }          
 
 }

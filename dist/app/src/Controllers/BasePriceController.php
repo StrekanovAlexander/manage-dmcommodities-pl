@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BasePrice;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use App\Models\ProductTranslate;
 use App\Common\Message;
 
@@ -43,8 +44,11 @@ class BasePriceController extends Controller {
             'price' => $price
         ]);
         
+        ProductPrice::rebuild();
+
         $this->flash->addMessage('success', Message::dataCreated($product->full_name));
-       return $res->withRedirect($this->router->pathFor('base.price.index'));
+        
+        return $res->withRedirect($this->router->pathFor('base.price.index'));
 
     }
  
@@ -60,6 +64,8 @@ class BasePriceController extends Controller {
         $basePrice->update([
             'price' => $req->getParam('price'),
         ]);
+
+        ProductPrice::rebuild();
  
         $this->flash->addMessage('success', Message::dataUpdated($basePrice->product->full_name));
         return $res->withRedirect($this->router->pathFor('base.price.index'));
@@ -71,6 +77,8 @@ class BasePriceController extends Controller {
         $basePrice->update([
             'is_actual' => $basePrice->is_actual ? false : true,
         ]);
+
+        ProductPrice::rebuild();
 
         return $res->withRedirect($this->router->pathFor('base.price.index'));
     }

@@ -26,8 +26,12 @@ class ProductPrice extends Model {
 
     public static function list() {
         return self::query()
+            ->join('products', 'product_prices.product_id', '=', 'products.id')
             ->join('base_prices', 'product_prices.product_id', '=', 'base_prices.product_id')
             ->join('logistic_prices', 'product_prices.place_id', '=', 'logistic_prices.place_id')
+            ->join('places', 'product_prices.place_id', '=', 'places.id')
+            ->orderBy('products.full_name')
+            ->orderBy('places.full_name')
             ->get([
                 'product_prices.*', 
                 'base_prices.price as base_price',
