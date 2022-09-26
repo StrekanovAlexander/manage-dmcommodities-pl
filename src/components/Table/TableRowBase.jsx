@@ -9,6 +9,7 @@ function TableRowBase({ basePrices, changeBasePrices }) {
                 <td key={el.id}>
                     <input type="number"
                         className="table-success" 
+                        name={`base-price-${el.id}`}
                         value={el.price} 
                         onChange={(ev) => 
                             changeBasePrices(el.id, Number(ev.target.value))}

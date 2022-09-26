@@ -81,6 +81,7 @@ $app->group('', function() {
 $app->group('', function() {
     $this->get('/product-prices', 'ProductPriceController:index')->setName('product.price.index');
     $this->post('/product-prices/rebuild', 'ProductPriceController:rebuild')->setName('product.price.rebuild');
+    $this->post('/product-prices/update', 'ProductPriceController:update');
 })->add(new \App\Middleware\AuthMiddleware($container));
 
 $app->group('', function() {

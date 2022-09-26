@@ -9,11 +9,22 @@ function App() {
 
     const [ basePrices, setBasePrices ] = useState([])
     const [ productPrices, setProductPrices ] = useState([])
+    const [ isPriceChanged, setIsPriceChanged ] = useState(false)
+    const [ isPriceLoading, setIsPriceLoading ] = useState(false)
 
     useEffect(() => {
-        fetch(basePricesUrl).then(res => res.json()).then(data => setBasePrices(data))
-        fetch(productPricesUrl).then(res => res.json()).then(data => setProductPrices(data))
+        loadPrice();
     }, [])
+
+    function loadPrice() {
+        setIsPriceChanged(false)
+        setIsPriceLoading(true)
+        setTimeout(() => {
+            fetch(basePricesUrl).then(res => res.json()).then(data => setBasePrices(data))
+            fetch(productPricesUrl).then(res => res.json()).then(data => setProductPrices(data))
+            setIsPriceLoading(false)
+        }, 0)      
+    }
 
     function changeBasePrices(id, price) {
         const changedBasePrices = basePrices.map(el => {
@@ -35,6 +46,7 @@ function App() {
             return {...productPrice, products: updatedProducts}
         })
         setProductPrices(updatedProductPrices) 
+        setIsPriceChanged(true)
     }
 
     function changeProductPrices(id, price) {
@@ -50,17 +62,32 @@ function App() {
             return productPrice
         })
         setProductPrices(changedProductPrices)
+        setIsPriceChanged(true)
     }
 
     return (
-        <div>
-            <Table 
-                basePrices={basePrices} 
-                changeBasePrices={changeBasePrices} 
-                productPrices={productPrices}
-                changeProductPrices={changeProductPrices}
-            />
-        </div>
+        isPriceLoading ? 
+            <p class="my-4">
+                <img src="./images/loading.gif" style={{ width: 25, marginRight: 10 }} />
+                Завантаження даних...
+            </p> : 
+            <div>
+                <form action="/product-prices/update" method="POST">
+                    <Table 
+                        basePrices={basePrices} 
+                        changeBasePrices={changeBasePrices} 
+                        productPrices={productPrices}
+                        changeProductPrices={changeProductPrices}
+                    />
+                    {isPriceChanged ? (
+                        <div>
+                            <button class="btn btn-success">Зберігти</button>
+                            <a href="#" class="btn btn-danger ml-2" onClick={loadPrice}>Скасувати</a>
+                        </div>
+                        ) : null
+                    }
+                </form>
+            </div>
     )
 }
 

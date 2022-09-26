@@ -7,6 +7,7 @@ function TableRowPrice({ productPrice, changeProductPrices }) {
             <td>
                 <input type="number" 
                     className="table-success"
+                    name={`logistic-price-${productPrice.id}`}
                     value={productPrice.price} 
                     onChange={(ev) => 
                         changeProductPrices(productPrice.id, Number(ev.target.value))}
