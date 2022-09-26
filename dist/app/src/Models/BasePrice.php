@@ -16,6 +16,16 @@ class BasePrice extends Model {
         return $this->belongsTo(Product::class, 'product_id');
     }
 
+    public static function list() {
+        return self::query()
+            ->join('products', 'base_prices.product_id', '=', 'products.id')
+            ->orderBy('products.full_name')
+            ->get([
+                'base_prices.*', 
+                'products.full_name as product_name'
+            ]);
+    }
+
     public static function actual() {
         return self::query()
             ->join('products', 'base_prices.product_id', '=', 'products.id')

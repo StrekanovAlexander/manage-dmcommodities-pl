@@ -12,7 +12,7 @@ class BasePriceController extends Controller {
     
     public function index($req, $res) {
         return $this->view->render($res, 'base-price/index.twig', [
-           'base_prices' => BasePrice::get() 
+           'base_prices' => BasePrice::list() 
         ]);
     }
 
