@@ -1,6 +1,7 @@
 import React from 'react'
+import TableRowBase from './TableRowBase.jsx'
 
-function TableHead({ basePrices }) {
+function TableHead({ basePrices, changeBasePrices }) {
     return (
         <thead>
             <tr>
@@ -10,6 +11,7 @@ function TableHead({ basePrices }) {
                     <th key={el.id}>{el.title}</th>
                 )}
             </tr>
+            <TableRowBase basePrices={basePrices} changeBasePrices={changeBasePrices} />
         </thead>
     )    
 }

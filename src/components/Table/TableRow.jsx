@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TableRowPrice({ productPrice, changeProductPrices }) {
+function TableRow({ productPrice, changeProductPrices }) {
     return (
         <tr>
             <td>{productPrice.title}</td>
@@ -24,4 +24,4 @@ function TableRowPrice({ productPrice, changeProductPrices }) {
     )
 }
 
-export default TableRowPrice;
+export default TableRow;

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Table from './components/Table/Table.jsx'
+import Loading from './components/Loading.jsx'
+import Price from './components/Price/Price.jsx'
   
 function App() { 
-    const basePricesUrl = 'http://manage-dmcommodities-pl.loc/base-prices/json'
-    const productPricesUrl = 'http://manage-dmcommodities-pl.loc/product-prices/json'
-    // const basePricesUrl = 'https://manage.dmcommodities.pl/base-prices/json'
-    // const productPricesUrl = 'https://manage.dmcommodities.pl/product-prices/json'
+    // const basePricesUrl = 'http://manage-dmcommodities-pl.loc/base-prices/json'
+    // const productPricesUrl = 'http://manage-dmcommodities-pl.loc/product-prices/json'
+    const basePricesUrl = 'https://manage.dmcommodities.pl/base-prices/json'
+    const productPricesUrl = 'https://manage.dmcommodities.pl/product-prices/json'
 
     const [ basePrices, setBasePrices ] = useState([])
     const [ productPrices, setProductPrices ] = useState([])
@@ -23,7 +24,7 @@ function App() {
             fetch(basePricesUrl).then(res => res.json()).then(data => setBasePrices(data))
             fetch(productPricesUrl).then(res => res.json()).then(data => setProductPrices(data))
             setIsPriceLoading(false)
-        }, 0)      
+        }, 1000)      
     }
 
     function changeBasePrices(id, price) {
@@ -67,24 +68,15 @@ function App() {
 
     return (
         isPriceLoading ? 
-            <p class="my-4">
-                <img src="./images/loading.gif" style={{ width: 25, marginRight: 10 }} />
-                Завантаження даних...
-            </p> : 
-            <div>
-                <Table 
-                    basePrices={basePrices} 
-                    changeBasePrices={changeBasePrices} 
-                    productPrices={productPrices}
-                    changeProductPrices={changeProductPrices}
-                />
-                {isPriceChanged ? 
-                    <div>
-                        <button class="btn btn-success">Зберігти</button>
-                        <a href="#" class="btn btn-danger ml-2" onClick={loadPrice}>Скасувати</a>
-                    </div> : null
-                }
-            </div>
+            <Loading /> : 
+            <Price 
+                basePrices={basePrices} 
+                changeBasePrices={changeBasePrices} 
+                productPrices={productPrices}
+                changeProductPrices={changeProductPrices}
+                isPriceChanged={isPriceChanged}
+                loadPrice={loadPrice}
+            /> 
     )
 }
 
