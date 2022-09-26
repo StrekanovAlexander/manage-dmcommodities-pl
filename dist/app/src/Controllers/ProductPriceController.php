@@ -27,7 +27,7 @@ class ProductPriceController extends Controller {
             $json[] = [
                 'id' => $logisticPrice->place_id,
                 'title' => $logisticPrice->place->full_name,
-                'price' => $logisticPrice->price,
+                'price' => round($logisticPrice->price),
                 'products' => $this->productPricesByPlace($logisticPrice->place_id)    
             ];         
         } 
@@ -48,7 +48,7 @@ class ProductPriceController extends Controller {
             $products[] = [
                 'id' => $productPrice->product_id,
                 'title' => $productPrice->product_name,
-                'price' => $productPrice->price
+                'price' => round($productPrice->price)
             ];
         } 
 

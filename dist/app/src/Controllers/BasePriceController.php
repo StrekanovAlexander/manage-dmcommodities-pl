@@ -91,7 +91,7 @@ class BasePriceController extends Controller {
             $json[] = [
                 'id' => $basePrice->product_id,
                 'title' => $basePrice->product_name,
-                'price' => $basePrice->price,
+                'price' => round($basePrice->price),
                 'translates' => $this->productTranslates($basePrice)    
             ];         
         } 
