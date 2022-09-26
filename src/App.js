@@ -72,21 +72,18 @@ function App() {
                 Завантаження даних...
             </p> : 
             <div>
-                <form action="/product-prices/update" method="POST">
-                    <Table 
-                        basePrices={basePrices} 
-                        changeBasePrices={changeBasePrices} 
-                        productPrices={productPrices}
-                        changeProductPrices={changeProductPrices}
-                    />
-                    {isPriceChanged ? (
-                        <div>
-                            <button class="btn btn-success">Зберігти</button>
-                            <a href="#" class="btn btn-danger ml-2" onClick={loadPrice}>Скасувати</a>
-                        </div>
-                        ) : null
-                    }
-                </form>
+                <Table 
+                    basePrices={basePrices} 
+                    changeBasePrices={changeBasePrices} 
+                    productPrices={productPrices}
+                    changeProductPrices={changeProductPrices}
+                />
+                {isPriceChanged ? 
+                    <div>
+                        <button class="btn btn-success">Зберігти</button>
+                        <a href="#" class="btn btn-danger ml-2" onClick={loadPrice}>Скасувати</a>
+                    </div> : null
+                }
             </div>
     )
 }

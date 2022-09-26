@@ -13,7 +13,10 @@
 {% block content %}
     <div>
         <h1>Прайс-лист</h1>
-        <div id="app"></div>
+        <form action="{{ path_for('product.price.update') }}" method="POST">
+            <div id="app"></div>
+            {{ form.csrf|raw }}
+        </form>
     </div>
     <script src="./js/bundle.js"></script>
 {% endblock %}

@@ -19,6 +19,13 @@ class ProductPriceController extends Controller {
         return $res->withRedirect($this->router->pathFor('product.price.index'));
     }
 
+    public function update($req, $res) {
+        var_dump('text');
+        die();
+        
+        return $res->withRedirect($this->router->pathFor('home.index'));
+    }
+
     public function json($req, $res) {
         $json = [];
         $logisticPrices = LogisticPrice::actual();
