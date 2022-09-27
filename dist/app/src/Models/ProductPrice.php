@@ -5,6 +5,7 @@ namespace App\Models;
 use \Illuminate\Database\Eloquent\Model;
 use App\Models\BasePrice;
 use App\Models\LogisticPrice;
+use App\Models\ProductTranslate;
 
 class ProductPrice extends Model {
     protected $table = 'product_prices';
@@ -50,6 +51,39 @@ class ProductPrice extends Model {
                 'products.full_name as product_name'
             ]);
     }
+
+    public static function arr() {
+        $items = LogisticPrice::actual();
+        $arr = [];
+
+        foreach($items as $item) {
+            $arr[] = [
+                'id' => $item->place_id,
+                'title' => $item->place->full_name,
+                'price' => round($item->price),
+                'products' => self::arrByPlace($item->place_id)    
+            ];         
+        } 
+
+        return $arr;
+    }    
+
+    public static function arrByPlace($placeId) {
+        $items = self::actualByPlace($placeId);
+        $arr = [];
+        
+        foreach($items as $item) {    
+            $arr[] = [
+                'id' => $item->product_id,
+                'title' => $item->product_name,
+                'price' => round($item->price),
+                'translates' => ProductTranslate::arrByProduct($item->product_id)
+            ];
+        } 
+
+        return $arr;
+    }          
+
 
     public static function rebuild() {
         $basePrices = BasePrice::orderBy('product_id')->get();

@@ -84,8 +84,8 @@ class BasePriceController extends Controller {
     }
 
     public function json($req, $res) {
-        $json = BasePrice::arr();
-        $res->getBody()->write(json_encode($json, JSON_UNESCAPED_UNICODE));
+        $arr = BasePrice::arr();
+        JSON::body($res, $arr);
 
         return JSON::header($res); 
         
