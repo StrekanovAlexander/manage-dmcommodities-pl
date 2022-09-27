@@ -42,10 +42,14 @@ class ProductPriceController extends Controller {
     }
 
     public function json($req, $res) {
-        $arr = ProductPrice::arr();
-        JSON::body($res, $arr);
-        return JSON::header($res); 
+        return JSON::toJSON($res, ProductPrice::arr());
+    }
 
+    public function jsonFull($req, $res) {
+        return JSON::toJSON($res, [
+            'base-price' => BasePrice::arr(),
+            'product-price' => ProductPrice::arr()
+        ]);
     }
 
 }

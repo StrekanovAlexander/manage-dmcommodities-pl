@@ -108,3 +108,4 @@ $app->group('', function() {
 
 $app->get('/base-prices/json', 'BasePriceController:json')->setName('base.price.json');
 $app->get('/product-prices/json', 'ProductPriceController:json')->setName('product.price.json');
+$app->get('/product-prices/json/full', 'ProductPriceController:jsonFull')->setName('product.price.json.full');

@@ -84,11 +84,7 @@ class BasePriceController extends Controller {
     }
 
     public function json($req, $res) {
-        $arr = BasePrice::arr();
-        JSON::body($res, $arr);
-
-        return JSON::header($res); 
-        
+        return JSON::toJSON($res, BasePrice::arr());
     }
 
 }
