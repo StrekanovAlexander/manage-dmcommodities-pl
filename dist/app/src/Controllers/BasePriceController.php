@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\BasePrice;
 use App\Models\Product;
 use App\Models\ProductPrice;
-use App\Models\ProductTranslate;
+use App\Common\JSON;
 use App\Common\Message;
 
 class BasePriceController extends Controller {
@@ -84,37 +84,11 @@ class BasePriceController extends Controller {
     }
 
     public function json($req, $res) {
-        $json = [];
-        $basePrices = BasePrice::actual();
-
-        foreach($basePrices as $basePrice) {
-            $json[] = [
-                'id' => $basePrice->product_id,
-                'title' => $basePrice->product_name,
-                'price' => round($basePrice->price),
-                'translates' => $this->productTranslates($basePrice)    
-            ];         
-        } 
-
+        $json = BasePrice::arr();
         $res->getBody()->write(json_encode($json, JSON_UNESCAPED_UNICODE));
-        
-        return  $res->withHeader('Content-type', 'application/json; charset=utf-8')
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-   }
 
-    private function productTranslates($basePrice) {
-        $productTranslates = ProductTranslate::where('is_actual', true)
-            ->where('product_id', $basePrice->product_id)->get();
-        $translates = [];
-        foreach($productTranslates as $productTranslate) {    
-            $translates[] = [
-                'language' => $productTranslate->language->short_name,
-                'title' => $productTranslate->full_name
-            ];
-        } 
-        return $translates;
-    }          
+        return JSON::header($res); 
+        
+    }
 
 }

@@ -20,5 +20,19 @@ class ProductTranslate extends Model {
     public function product() {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public static function arrByProduct($productId) {
+        $items = self::where('is_actual', true)->where('product_id', $productId)->get();
+        $arr = [];
+        
+        foreach($items as $item) {    
+            $arr[] = [
+                'language' => $item->language->short_name,
+                'title' => $item->full_name
+            ];
+        }
+
+        return $arr;
+    }          
     
 }

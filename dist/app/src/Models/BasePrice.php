@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models;
+
 use \Illuminate\Database\Eloquent\Model;
+use App\Models\ProductTranslate;
 
 class BasePrice extends Model {
     protected $table = 'base_prices';
@@ -35,6 +37,23 @@ class BasePrice extends Model {
                 'base_prices.*', 
                 'products.full_name as product_name'
             ]);
+    }
+
+    public static function arr() {
+        $items = self::actual();
+        $arr = [];
+
+        foreach($items as $item) {
+            $arr[] = [
+                'id' => $item->product_id,
+                'title' => $item->product_name,
+                'price' => round($item->price),
+                'translates' => ProductTranslate::arrByProduct($item->product_id)    
+            ];         
+        } 
+
+        return $arr;
+
     }
     
 }
