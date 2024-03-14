@@ -1,2 +1,2 @@
-Logistic project
-PHP, React, Bootstrap
+# Logistic project
+Implemented on PHP, React, Bootstrap
